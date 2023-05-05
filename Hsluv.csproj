@@ -4,6 +4,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netstandard2.0</TargetFramework>
     <StartupObject>HsluvTest.HsluvConverterTest</StartupObject>
+    <PublishReadyToRun>true</PublishReadyToRun>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="HsluvTest/snapshot-rev3.json">
