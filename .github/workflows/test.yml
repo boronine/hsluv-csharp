@@ -1,13 +1,35 @@
 name: Compile and test
 
 on:
+  - workflow_dispatch
   - pull_request
   - push
 
 jobs:
-  build:
+  test-mono:
+    name: Test using Mono
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - run: mcs HsluvTest/HsluvConverterTest.cs HsluvTest/MiniJSON.cs Hsluv/Hsluv.cs -resource:HsluvTest/snapshot-rev3.json,JsonSnapshotRev3 -main:HsluvTest.HsluvConverterTest
       - run: mono ./HsluvTest/HsluvConverterTest.exe
+  test-dotnet:
+    name: Test using .NET Core SDK ${{ matrix.dotnet }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet: [ '2.1.x', '3.1.x', '5.0.x' ]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        id: stepid
+        with:
+          dotnet-version: ${{ matrix.dotnet }}
+      - name: Create temporary global.json
+        run: |
+          echo '{"sdk":{"version": "${{ steps.stepid.outputs.dotnet-version }}"}}' > ./global.json
+      - name: Build
+        run: dotnet publish Hsluv.csproj --self-contained -c Release
+      - name: Execute
+        run: dotnet bin/Release/netstandard2.0/Hsluv.dll

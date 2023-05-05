@@ -1,0 +1,16 @@
+<!-- https://learn.microsoft.com/en-us/visualstudio/msbuild/walkthrough-creating-an-msbuild-project-file-from-scratch?view=vs-2022 -->
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <StartupObject>HsluvTest.HsluvConverterTest</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HsluvTest/snapshot-rev3.json">
+      <LogicalName>JsonSnapshotRev3</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <!-- <PropertyGroup>
+    <StartupObject>HsluvTest.HsluvConverterTest</StartupObject>
+  </PropertyGroup> -->
+</Project>
