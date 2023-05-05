@@ -30,6 +30,6 @@ jobs:
         run: |
           echo '{"sdk":{"version": "${{ steps.stepid.outputs.dotnet-version }}"}}' > ./global.json
       - name: Build
-        run: dotnet publish Hsluv.csproj --self-contained -c Release
+        run: dotnet publish Hsluv.csproj -c Release
       - name: Execute
-        run: dotnet bin/Release/netstandard2.0/Hsluv.dll
+        run: dotnet bin/Release/net40/Hsluv.exe
